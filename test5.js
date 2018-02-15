@@ -71,7 +71,7 @@ const server = http.createServer( (request, response) =>{
         const err404 = (res) => {
             res.statusCode = 404;
             res.setHeader('content-type', 'text/html');
-            res.write('Error 404: Page not found!');
+            res.write('Error 404: Page not found');
             res.end()
         }})
         // this line for test github push
