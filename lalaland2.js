@@ -1,29 +1,29 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var multer = require('multer');
-var upload = multer();
-var app = express();
+const express = require('express')
+const app = express()
+const port = 3000
 
-app.get('/', function(req, res){
-   res.render('form');
+
+app.get(('/'),(req,res)=>{
+    res.send(`<form action="/myform" method="GET">
+                your title
+                <input type="text" name="title" required />
+                <br />
+                text
+                <input type="text" name="text" required />
+                <br />
+                <input type="submit" value="Submit" />
+            </form>`)
+    // console.log(JSON.stringify(data))
+})
+app.get('/myform', function(req, res){ 
+    var myText = ('<h1>' + req.query.title + `</h1><br />` + req.query.text )
+    res.send(myText); 
+}); 
+
+app.listen(port,(err)=>{
+    if(err){
+        console.log('something bad happened', err)
+    }else{
+        console.log(`server is listening on port ${port}`)
+    }
 });
-
-app.set('view engine', 'pug');
-app.set('views', './views');
-
-// for parsing application/json
-app.use(bodyParser.json()); 
-
-// for parsing application/xwww-
-app.use(bodyParser.urlencoded({ extended: true })); 
-//form-urlencoded
-
-// for parsing multipart/form-data
-app.use(upload.array()); 
-app.use(express.static('public'));
-
-app.post('/', function(req, res){
-   console.log(req.body);
-   res.send("recieved your request!");
-});
-app.listen(3000);

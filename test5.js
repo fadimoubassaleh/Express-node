@@ -1,5 +1,3 @@
-
-
 const http = require('http')
 const port = 3000
 
@@ -49,8 +47,14 @@ const server = http.createServer( (request, response) =>{
                     const add = parseInt(url[2], 10) + parseInt(url[3], 10)
                     response.end(header + body1('WO HOoo!', ('We add the number ' + url[2] + ' to the number ' + url[3] + ' and the results is'), ('<br />' + add)))
                 }
-            }
-            else{
+            }else if(url[1] == 'remove'){
+                if (!url[2] || !url[3]){
+                    response.end(header + body1('WORNING!', 'not enough arguments', 'ERROR'))
+                }else{
+                    const add = parseInt(url[2], 10) - parseInt(url[3], 10)
+                    response.end(header + body1('WO HOoo!', ('We remove the number ' + url[2] + ' from ' + url[3] + ' and the results is'), ('<br />' + add)))
+                }
+            }else{
                 response.end(header + body1('WORNING!', 'yOU HavE A bIg ERROR', 'Like my typing'))
             }
         })
